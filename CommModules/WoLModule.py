@@ -12,7 +12,7 @@ def spark(inputText):
 	mac = ''
 	computer = ''
 	#open the file macs.txt and read lines within it
-	macfile = open('macs.txt','r')
+	macfile = open('/home/pi/PiBadge/macs.txt','r')
 	macs = macfile.readlines()
 	#print the input text for debugging
 	print inputText

@@ -59,10 +59,10 @@ def openComms():
 	#clear input words variable
 	inputWords = ''
 	#call recording software, to start recording on noise detection and stop after a few seconds of silence
-	subprocess.call(['rec test.wav rate 32k silence 1 0.1 1% 1 3.0 1%'], shell=True)
+	subprocess.call(['rec /home/pi/PiBadge/test.wav rate 32k silence 1 0.1 1% 1 3.0 1%'], shell=True)
 	resp = None
 	#pass the wav file to wit.ai for processing
-	with open('test.wav', 'rb') as f:
+	with open('/home/pi/PiBadge/test.wav', 'rb') as f:
 		resp = client_wit.speech(f, None, {'Content-Type': 'audio/wav'})
 	#extract the return text from the stt at wit.ai
 	inputWords = str(resp['_text'])
@@ -85,7 +85,7 @@ while True:
 	#if button has been pressed
 	if padPressed:
 		#call the aplay command to play the tng combadge chirp sound
-		subprocess.call(['aplay tng_chirp2_clean.wav'], shell=True)
+		subprocess.call(['aplay /home/pi/PiBadge/tng_chirp2_clean.wav'], shell=True)
 		#call the opencomms function
 		openComms()
 	time.sleep(0.1)

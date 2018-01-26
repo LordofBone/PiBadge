@@ -199,10 +199,10 @@ def spark(inputWords):
 	try:
 		while True:
 			#using subprocess to call the sox recording software with a configuration to trim silence from the recording and stop recording when the speaker has finished
-			subprocess.call(['rec test.wav rate 32k silence 1 0.1 1% 1 3.0 1%'], shell=True)
+			subprocess.call(['rec /home/pi/PiBadge/test.wav rate 32k silence 1 0.1 1% 1 3.0 1%'], shell=True)
 			resp = None
 			#use the wit.ai class to interface with the API and send off the wav file from above for STT functions
-			with open('test.wav', 'rb') as f:
+			with open('/home/pi/PiBadge/test.wav', 'rb') as f:
 				resp = client_wit.speech(f, None, {'Content-Type': 'audio/wav'})
 			#parse the response given to get the text sent back which will then become the words the bot uses	
 			inputWords = str(resp['_text'])
