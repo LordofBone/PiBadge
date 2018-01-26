@@ -10,7 +10,6 @@ import datetime
 import sys
 import time
 import numpy
-from colors import *
 from pymongo import MongoClient
 from pprint import pprint
 from difflib import SequenceMatcher
@@ -194,15 +193,13 @@ def spark(inputWords):
 	#use subprocess again to initialise espeak (the TTS) and say the bots response
 	subprocess.call(['espeak', globalReply])
 	#print the output words to the screen (debug/testing purposes)
-	sys.stdout.write(BLUE)
 	print (globalReply)
-	sys.stdout.write(RESET)
 	
 	#the main loop wrapped in a try to capture any errors and hopefully exit cleanly
 	try:
 		while True:
 			#using subprocess to call the sox recording software with a configuration to trim silence from the recording and stop recording when the speaker has finished
-			subprocess.call(['rec test.wav rate 32k silence 1 0.1 5% 1 3.0 5%'], shell=True)
+			subprocess.call(['rec test.wav rate 32k silence 1 0.1 1% 1 3.0 1%'], shell=True)
 			resp = None
 			#use the wit.ai class to interface with the API and send off the wav file from above for STT functions
 			with open('test.wav', 'rb') as f:
@@ -210,9 +207,7 @@ def spark(inputWords):
 			#parse the response given to get the text sent back which will then become the words the bot uses	
 			inputWords = str(resp['_text'])
 			#print input for debugging
-			sys.stdout.write(RED)
 			print inputWords
-			sys.stdout.write(RESET)
 			#if any exit works detected break from the loop which will return back to the main code
 			if any(x in inputWords.split() for x in exitWords.split()):
 				break
@@ -223,9 +218,7 @@ def spark(inputWords):
 			#use subprocess again to initialise espeak (the TTS) and say the bots response
 			subprocess.call(['espeak', globalReply])
 			#print the output words to the screen (debug/testing purposes)
-			sys.stdout.write(BLUE)
 			print(globalReply)
-			sys.stdout.write(RESET)
 	except: 
 		pass
 	  

@@ -1,6 +1,5 @@
 import subprocess
 import re
-from colors import *
 import sys
 
 #for finding whole words within a string, to match the word within the macs.txt for computer identification
@@ -16,9 +15,7 @@ def spark(inputText):
 	macfile = open('macs.txt','r')
 	macs = macfile.readlines()
 	#print the input text for debugging
-	sys.stdout.write(RED)
 	print inputText
-	sys.stdout.write(RESET)
 	#strip the word 'wake' out as it is no longer useful in this module
 	inputText = inputText.strip('wake')
 	#check through each item in the macs variable
@@ -31,17 +28,13 @@ def spark(inputText):
 				computer, mac = item.split(',')
 	#if no computer is found and mac address is blank then say computer not found and return to main code
 	if mac == '':
-		sys.stdout.write(BLUE)
 		print 'computer not found'
-		sys.stdout.write(RESET)
 		subprocess.call(["espeak 'computer not found'"], shell=True)
 		return
 	#if successful then run the wake command for the mac address of the computer using etherwake
 	wakeCommand = ('wakeonlan ' + mac)
 	#print the wakecommand for debugging
-	sys.stdout.write(BLUE)
 	print wakeCommand
-	sys.stdout.write(RESET)
 	#use tts to inform the user what computer has been woken
 	wakeNotification = str("waking computer " + computer)
 	subprocess.call([wakeCommand], shell=True)

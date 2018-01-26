@@ -4,7 +4,6 @@ import sys
 import os
 import subprocess
 import pkgutil
-from colors import *
 from wit import Wit
 import CommModules
 import time
@@ -68,9 +67,7 @@ def openComms():
 	#extract the return text from the stt at wit.ai
 	inputWords = str(resp['_text'])
 	#print input words for debugging
-	sys.stdout.write(RED)
 	print inputWords
-	sys.stdout.write(RESET)
 	#if the input matches any of the exit words then return from the function back to main loop
 	if any(x in inputWords.split() for x in exitWords.split()):
 		return
